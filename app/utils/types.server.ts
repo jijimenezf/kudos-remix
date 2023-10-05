@@ -19,14 +19,15 @@ export const SignUpForm = z.object({
   lastName: z.string().min(4, { message: "Must be 4 or more characters long" }),
 }).merge(LoginForm);
 
-/** export type LoginForm = {
-  email: string;
-  password: string;
-  firstName: string | null;
-  lastName: string | null;
-} **/
+// export type LoginForm = {
+//  email: string;
+//  password: string;
+//  firstName: string | null;
+//  lastName: string | null;
+// }
+// export type LoginFormType = z.infer<typeof SignUpForm>;
 
-//export type LoginFormType = z.infer<typeof SignUpForm>;
+
 export type TLogin = z.infer<typeof LoginForm>;
 export type TSignUp = z.infer<typeof SignUpForm>;
 

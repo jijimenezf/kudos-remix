@@ -4,7 +4,7 @@ import { FormField } from "~/components/form-field";
 import { json, type ActionFunction, type LoaderFunction, redirect } from "@remix-run/node";
 import { login, register, getUser } from "~/utils/auth.server";
 import { useActionData } from "@remix-run/react";
-import { SignUpForm, LoginForm } from "~/utils/types.server";
+import { SignUpForm, LoginForm, type TSignUp } from "~/utils/types.server";
 import { fromZodError } from 'zod-validation-error';
 import { ZodError } from "zod";
 
@@ -67,7 +67,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Login() {
   const actionData = useActionData();
   const firstLoad = useRef(true);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<TSignUp>({
     email: actionData?.fields?.email || '',
     password: actionData?.fields?.password || "",
     firstName: actionData?.fields?.firstName || "",
