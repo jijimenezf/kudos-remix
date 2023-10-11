@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Profile, User, Kudo } from "@prisma/client";
+import type { Profile, User, Kudo, Department } from "@prisma/client";
 
 export const LoginForm = z.object({
   email: z.string({
@@ -12,13 +12,16 @@ export const LoginForm = z.object({
   }).min(5, { message: "Must be 5 or more characters long" }),
 });
 
-export const SignUpForm = z.object({
-  /*firstName: z.nullable(z.string()).optional(),
+export const BasicForm = z.object({
+   /*firstName: z.nullable(z.string()).optional(),
   lastName: z.nullable(z.string()).optional(), */
   firstName: z.string({
     required_error: "First Name is mandatory",}).min(4, { message: "Must be 4 or more characters long" }),
   lastName: z.string().min(4, { message: "Must be 4 or more characters long" }),
-}).merge(LoginForm);
+});
+
+export const SignUpForm = z.object({
+}).merge(LoginForm).merge(BasicForm);
 
 // export type LoginForm = {
 //  email: string;
@@ -92,3 +95,6 @@ export type KudoWithRecipient = {
   kudo: Kudo;
   recipient: User;
 }
+
+export type UpdateAction = 'save' | 'delete';
+

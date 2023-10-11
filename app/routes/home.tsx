@@ -5,7 +5,7 @@ import { UserPanel } from "~/components/user-panel";
 import { Kudo } from "~/components/kudo";
 import { SearchBar } from "~/components/search-bar";
 import { RecentBar } from "~/components/recent-bar";
-import { getOtherUsers } from "~/utils/users.server";
+import { getOtherUsers, getUserById } from "~/utils/users.server";
 import { requireUserId } from "~/utils/auth.server";
 import { getFilteredKudos, getRecentKudos } from "~/utils/kudos.server";
 import type { KudoWithProfile } from "~/utils/types.server";
@@ -14,6 +14,7 @@ import type { Prisma } from "@prisma/client";
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requireUserId(request);
   const users = await getOtherUsers(userId);
+  const currentUser = await getUserById(userId)
 
   const url = new URL(request.url);
   const sort = url.searchParams.get('sort');
@@ -49,18 +50,18 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const kudos = await getFilteredKudos(userId, sortOptions, textFilter);
   const recentKudos = await getRecentKudos();
-  return json({ users, kudos, recentKudos });
+  return json({ users, kudos, recentKudos, currentUser });
 }
 
 export default function Home() {
-  const { users, kudos, recentKudos } = useLoaderData();
+  const { users, kudos, recentKudos, currentUser } = useLoaderData();
   return (
     <Layout>
       <Outlet />
       <div className="h-full flex">
         <UserPanel users={users} />
         <div className="flex-1 flex flex-col">
-          <SearchBar />
+          <SearchBar profile={currentUser.profile} />
           <div className="flex-1 flex">
             <div className="w-full p-10 flex flex-col gap-y-4">
               {kudos.map((kudo: KudoWithProfile) => (

@@ -1,6 +1,7 @@
 import { prisma } from "./prisma.server";
 import bcrypt from 'bcryptjs';
 import type { TSignUp } from "./types.server";
+import { Profile } from "@prisma/client";
 
 
 export const createUser = async (user: TSignUp) => {
@@ -37,5 +38,18 @@ export const getUserById = async (userId: string) => {
     where: {
       id: userId,
     }
+  });
+}
+
+export const updateUser = async (userId: string, profile: Partial<Profile>) => {
+  await prisma.user.update({
+    where: {
+      id: userId
+    },
+    data: {
+      profile: {
+        update: profile,
+      },
+    },
   });
 }
