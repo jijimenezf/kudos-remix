@@ -69,7 +69,6 @@ export default function ProfileSettings() {
         firstName: actionData?.fields?.firstName || user?.profile?.firstName,
         lastName: actionData?.fields?.lastName || user?.profile?.lastName,
         department: actionData?.fields?.department || (user?.profile?.department || 'MARKETING'),
-        profilePicture: user?.profile?.profilePicture || '',
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, field: string): void => {
@@ -94,10 +93,10 @@ export default function ProfileSettings() {
            body: inputFormData
         })
         const { imageUrl } = await response.json()
-        setFormData({
+        /* setFormData({
            ...formData,
            profilePicture: imageUrl
-        })
+        }) */
       }
 
     return (
@@ -111,7 +110,7 @@ export default function ProfileSettings() {
               </div>
               <div className='flex'>
               <div className="w-1/3">
-                  <ImageUploader onChange={handleFileUpload} imageUrl={formData.profilePicture || ''}/>
+                  <ImageUploader onChange={handleFileUpload} imageUrl={'https://fastly.picsum.photos/id/866/200/300.jpg'}/>
                </div>
                 <div className='flex-1'>
                   <form method='POST'>

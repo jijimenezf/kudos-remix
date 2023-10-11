@@ -11,7 +11,7 @@ export const action: ActionFunction = async ({ request }) => {
   const imageUrl = "https://picsum.photos/seed/picsum/200/300"
 
   // 3
-  await prisma.user.update({
+  /* await prisma.user.update({
     data: {
       profile: {
         update: {
@@ -22,7 +22,7 @@ export const action: ActionFunction = async ({ request }) => {
     where: {
       id: userId,
     },
-  });
+  }); */
 
   // 4
   return json({ imageUrl });
