@@ -62,22 +62,22 @@ export default function KudoModal() {
   const { recipient, user } = useLoaderData();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
-    setFormData(data => ({...data, [field]: e.target.value}));
+    setFormData(data => ({ ...data, [field]: e.target.value }));
   }
 
   const handleStyleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
     setFormData(data => ({
-        ...data, style: {
-            ...data.style,
-            [field]: e.target.value
-        }
+      ...data, style: {
+        ...data.style,
+        [field]: e.target.value
+      }
     }))
   }
 
   const getOptions = (data: any) => Object.keys(data).reduce((acc: any[], curr) => {
     acc.push({
-        name: curr.charAt(0).toUpperCase() + curr.slice(1).toLowerCase(),
-        value: curr
+      name: curr.charAt(0).toUpperCase() + curr.slice(1).toLowerCase(),
+      value: curr
     })
     return acc
   }, []);

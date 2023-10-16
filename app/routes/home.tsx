@@ -11,6 +11,7 @@ import { getFilteredKudos, getRecentKudos } from "~/utils/kudos.server";
 import type { KudoWithProfile } from "~/utils/types.server";
 import type { Prisma } from "@prisma/client";
 
+// export const loader = async ({ request }: LoaderFunctionArgs) => {
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requireUserId(request);
   const users = await getOtherUsers(userId);
@@ -51,10 +52,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   const kudos = await getFilteredKudos(userId, sortOptions, textFilter);
   const recentKudos = await getRecentKudos();
   return json({ users, kudos, recentKudos, currentUser });
+  // return json({ user: currentLoggedInUser }, { status: 200 });
 }
 
 export default function Home() {
   const { users, kudos, recentKudos, currentUser } = useLoaderData();
+  //useLoaderData<typeof loader>();
   return (
     <Layout>
       <Outlet />
