@@ -2,6 +2,10 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+## Remix app including Prisma features and MongoDB
+
+Following tutorials for Prisma (https://www.prisma.io/blog/fullstack-remix-prisma-mongodb-1-7D0BfTXBmB6r) adding recent features for TS, React and Prisma ORM
+
 ## Development
 
 From your terminal:
